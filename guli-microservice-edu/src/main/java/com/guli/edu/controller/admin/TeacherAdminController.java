@@ -100,7 +100,7 @@ public class TeacherAdminController {
     @GetMapping("{id}")
     public R getById(
             @ApiParam(name = "id", value = "讲师ID", required = true)
-            @PathVariable("id")Integer id) {
+            @PathVariable("id")String id) {
 
         Teacher teacher = teacherService.getById(id);
 
