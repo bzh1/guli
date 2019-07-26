@@ -24,7 +24,7 @@ public class TeacherAdminController {
 
     @ApiOperation(value = "查询所有讲师")
     @GetMapping
-    public R list() {
+    public R getList() {
 
         List<Teacher> list = teacherService.list(null);
         return R.ok().data("item", list);

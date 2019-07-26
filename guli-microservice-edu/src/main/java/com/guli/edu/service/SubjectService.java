@@ -1,7 +1,12 @@
 package com.guli.edu.service;
 
-import com.guli.edu.entity.Subject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.guli.edu.entity.Subject;
+import com.guli.edu.vo.SubjectNestedVo;
+import com.guli.edu.vo.SubjectVo2;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +18,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface SubjectService extends IService<Subject> {
 
+    List<String> batchImport(MultipartFile file) throws Exception;
+
+    List<SubjectNestedVo> nestedList();
+
+    List<SubjectVo2> nestedList2();
 }

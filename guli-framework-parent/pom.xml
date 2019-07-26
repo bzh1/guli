@@ -19,6 +19,8 @@
 <modules>
     <module>../guli-framework-common</module>
     <module>../guli-microservice-edu</module>
+    <module>../guli-microservice-ucenter</module>
+    <module>../guli-microservice-statistics</module>
 </modules>
     <properties>
         <java.version>1.8</java.version>

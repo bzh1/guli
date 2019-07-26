@@ -2,4 +2,14 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.guli.edu.mapper.SubjectMapper">
 
+    <resultMap id="nestedSubject" type="com.guli.edu.vo.SubjectVo2">
+        <id property="id" column="id"/>
+        <result property="title" column="title"/>
+        <collection property="children" ofType="com.guli.edu.vo.SubjectVo2" select="selectNestedListByParentId" column="id"/>
+    </resultMap>
+
+    <!--List<SubjectVo2> selectNestedListByParentId(String parentId);-->
+    <select id="selectNestedListByParentId" resultMap="nestedSubject">
+        select id,title,parent_id from edu_subject where parent_id=#{parentId}
+    </select>
 </mapper>
