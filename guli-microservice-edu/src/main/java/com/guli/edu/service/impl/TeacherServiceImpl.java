@@ -10,6 +10,10 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 讲师 服务实现类
@@ -53,5 +57,35 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherMapper, Teacher> impl
         }
 
         baseMapper.selectPage(teacherPage, queryWrapper);
+    }
+
+    @Override
+    public Map<String, Object> pageListWeb(Page<Teacher> teacherPage) {
+
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByAsc("sort");
+
+        baseMapper.selectPage(teacherPage, queryWrapper);
+
+        List<Teacher> records = teacherPage.getRecords();
+        long current = teacherPage.getCurrent();
+        long total = teacherPage.getTotal();
+        long size = teacherPage.getSize();
+        long pages = teacherPage.getPages();
+        boolean hasNext = teacherPage.hasNext();
+        boolean hasPrevious = teacherPage.hasPrevious();
+        boolean optimizeCountSql = teacherPage.optimizeCountSql();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("total", total);
+        map.put("size", size);
+        map.put("pages", pages);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+        map.put("optimizeCountSql", optimizeCountSql);
+
+        return map;
     }
 }

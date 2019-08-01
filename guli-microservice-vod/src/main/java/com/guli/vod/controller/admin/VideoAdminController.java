@@ -1,4 +1,4 @@
-package com.guli.vod.controller;
+package com.guli.vod.controller.admin;
 
 import com.aliyuncs.vod.model.v20170321.CreateUploadVideoResponse;
 import com.aliyuncs.vod.model.v20170321.RefreshUploadVideoResponse;
@@ -11,7 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Api(description = "阿里云视频点播微服务")
+@Api(description = "阿里云视频上传微服务")
 @CrossOrigin
 @RestController
 @RequestMapping("/admin/vod/video")

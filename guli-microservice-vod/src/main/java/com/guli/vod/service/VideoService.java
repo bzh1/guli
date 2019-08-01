@@ -13,4 +13,7 @@ public interface VideoService {
     CreateUploadVideoResponse getUploadAuthAndAddress(String title, String fileName);
 
     RefreshUploadVideoResponse refreshUploadAuthAndAddress(String videoId);
+
+    String getVideoPlayAuth(String videoId);
+
 }

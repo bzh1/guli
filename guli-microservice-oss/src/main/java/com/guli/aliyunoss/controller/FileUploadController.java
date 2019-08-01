@@ -25,7 +25,7 @@ public class FileUploadController {
             @ApiParam(name = "file",value = "文件",required = true)
             @RequestParam("file") MultipartFile file,
             @ApiParam(name = "host",value = "文件上传路径",required = false)
-            @RequestParam("host")String host){
+            @RequestParam(value = "host",required = false)String host){
 
         if (!StringUtils.isEmpty(host)) {
             ConstantPropertiesUtil.FILE_HOST=host;

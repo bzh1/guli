@@ -12,6 +12,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-07-20
  */
 public interface MemberService extends IService<Member> {
+
     Integer countRegisterByDay(String day);
+
+    Member getByOpenid(String openid);
 
 }

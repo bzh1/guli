@@ -16,11 +16,16 @@ import com.guli.edu.mapper.VideoMapper;
 import com.guli.edu.query.CourseQuery;
 import com.guli.edu.service.CourseService;
 import com.guli.edu.vo.CoursePublishVo;
+import com.guli.edu.vo.CourseWebVo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -175,5 +180,58 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         course.setStatus(Course.COURSE_NORMAL);
 
         baseMapper.updateById(course);
+    }
+
+    @Override
+    public Map<String, Object> pageListWeb(Page<Course> coursePage) {
+
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("gmt_modified");
+
+        baseMapper.selectPage(coursePage, queryWrapper);
+
+        List<Course> records = coursePage.getRecords();
+        long current = coursePage.getCurrent();
+        long total = coursePage.getTotal();
+        long size = coursePage.getSize();
+        boolean hasNext = coursePage.hasNext();
+        boolean hasPrevious = coursePage.hasPrevious();
+        long pages = coursePage.getPages();
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("items", records);
+        map.put("current", current);
+        map.put("total", total);
+        map.put("size", size);
+        map.put("hasNext", hasNext);
+        map.put("hasPrevious", hasPrevious);
+        map.put("pages", pages);
+
+        return map;
+    }
+
+    @Transactional
+    @Override
+    public CourseWebVo selectCourseWebVoById(String id) {
+
+        //更新课程浏览数
+        Course course = baseMapper.selectById(id);
+        course.setViewCount(course.getViewCount() + 1);
+        baseMapper.updateById(course);
+
+        //查询课程信息
+        return baseMapper.selectCourseWebVoById(id);
+    }
+
+    @Override
+    public List<Course> selectByTeacherId(String teacherId) {
+
+        QueryWrapper<Course> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("teacher_id", teacherId);
+        queryWrapper.orderByDesc("gmt_modified");
+
+        List<Course> courses = baseMapper.selectList(queryWrapper);
+
+        return courses;
     }
 }
